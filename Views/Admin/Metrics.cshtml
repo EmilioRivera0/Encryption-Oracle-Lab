@@ -1,0 +1,70 @@
+@{
+    ViewData["Title"] = "Company Metrics";
+
+    var kpis = new[]
+    {
+        new { Label = "Monthly Revenue", Value = "$248,500", Trend = "+8.2%", Positive = true },
+        new { Label = "Active Customers", Value = "1,342", Trend = "+3.1%", Positive = true },
+        new { Label = "Operating Costs", Value = "$171,300", Trend = "+1.4%", Positive = false },
+        new { Label = "Customer Churn", Value = "2.7%", Trend = "-0.5%", Positive = true }
+    };
+
+    var monthly = new[]
+    {
+        new { Month = "August", Revenue = 205000, Expenses = 158000 },
+        new { Month = "September", Revenue = 212500, Expenses = 160200 },
+        new { Month = "October", Revenue = 221300, Expenses = 163900 },
+        new { Month = "November", Revenue = 229800, Expenses = 166400 },
+        new { Month = "December", Revenue = 239600, Expenses = 168900 },
+        new { Month = "January", Revenue = 248500, Expenses = 171300 }
+    };
+}
+
+<div class="py-4">
+    <a class="btn btn-link text-decoration-none px-0 mb-3" asp-controller="Admin" asp-action="Index">&larr; Administration</a>
+    <h1 class="h4 fw-semibold mb-4">Company Metrics</h1>
+
+    <div class="row g-4 mb-4">
+        @foreach (var kpi in kpis)
+        {
+            <div class="col-12 col-sm-6 col-lg-3">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body">
+                        <div class="text-muted small">@kpi.Label</div>
+                        <div class="h4 fw-semibold my-1">@kpi.Value</div>
+                        <span class="small @(kpi.Positive ? "text-success" : "text-danger")">@kpi.Trend vs last month</span>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="card border-0 shadow-sm">
+        <div class="card-body p-4">
+            <h2 class="h5 fw-semibold mb-3">Last 6 Months</h2>
+            <div class="table-responsive">
+                <table class="table table-striped align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th>Month</th>
+                            <th class="text-end">Revenue</th>
+                            <th class="text-end">Expenses</th>
+                            <th class="text-end">Profit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var row in monthly)
+                        {
+                            <tr>
+                                <td>@row.Month</td>
+                                <td class="text-end">$@row.Revenue.ToString("N0")</td>
+                                <td class="text-end">$@row.Expenses.ToString("N0")</td>
+                                <td class="text-end fw-semibold">$@((row.Revenue - row.Expenses).ToString("N0"))</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

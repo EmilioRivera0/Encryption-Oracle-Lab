@@ -1,0 +1,74 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+  color: var(--bs-secondary-color);
+  text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+  text-align: start;
+}
+
+.home-tile {
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.home-tile:hover,
+.home-tile:focus-visible {
+  transform: translateY(-4px);
+  box-shadow: 0 .75rem 1.5rem rgba(0, 0, 0, .12) !important;
+}
+
+.section-label {
+  letter-spacing: .08em;
+  font-size: .75rem;
+}
+
+.insight-card {
+  border-radius: 1rem;
+}
+
+.insight-card .card-body {
+  padding: 1.25rem;
+}
+
+.chart-box {
+  position: relative;
+  height: 200px;
+}
+
+.chart-box-lg {
+  height: 240px;
+}
+
+.live-badge {
+  font-weight: 500;
+  color: #495057;
+}
+
+.live-dot {
+  display: inline-block;
+  width: .5rem;
+  height: .5rem;
+  margin-right: .4rem;
+  border-radius: 50%;
+  background: #198754;
+  animation: live-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes live-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .3; }
+}

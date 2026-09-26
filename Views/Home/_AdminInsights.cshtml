@@ -1,0 +1,72 @@
+<div class="d-flex align-items-center justify-content-between mb-3">
+    <h2 class="h6 text-uppercase text-muted fw-semibold mb-0 section-label">System &amp; Operations</h2>
+    <span class="badge rounded-pill text-bg-light border live-badge"><span class="live-dot"></span>Live</span>
+</div>
+
+<div class="row g-3 mb-3">
+    <div class="col-6 col-md-3">
+        <div class="card border-0 shadow-sm insight-card h-100">
+            <div class="card-body">
+                <div class="text-muted small">Uptime</div>
+                <div class="h5 fw-semibold mb-0">99.98%</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="card border-0 shadow-sm insight-card h-100">
+            <div class="card-body">
+                <div class="text-muted small">Avg. response</div>
+                <div class="h5 fw-semibold mb-0">142 ms</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="card border-0 shadow-sm insight-card h-100">
+            <div class="card-body">
+                <div class="text-muted small">Transactions / min</div>
+                <div class="h5 fw-semibold mb-0">1,284</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="card border-0 shadow-sm insight-card h-100">
+            <div class="card-body">
+                <div class="text-muted small">Failed ops</div>
+                <div class="h5 fw-semibold mb-0 text-danger">0.4%</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-3 mb-3">
+    <div class="col-12">
+        <div class="card border-0 shadow-sm insight-card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div class="fw-semibold">Server performance</div>
+                    <div class="small text-muted">Last 12 hours</div>
+                </div>
+                <div class="chart-box chart-box-lg"><canvas id="adminServerChart"></canvas></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-3">
+    <div class="col-12 col-md-7">
+        <div class="card border-0 shadow-sm insight-card h-100">
+            <div class="card-body">
+                <div class="fw-semibold mb-3">Bank operations volume</div>
+                <div class="chart-box"><canvas id="adminOperationsChart"></canvas></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-md-5">
+        <div class="card border-0 shadow-sm insight-card h-100">
+            <div class="card-body">
+                <div class="fw-semibold mb-3">Operation status</div>
+                <div class="chart-box"><canvas id="adminStatusChart"></canvas></div>
+            </div>
+        </div>
+    </div>
+</div>

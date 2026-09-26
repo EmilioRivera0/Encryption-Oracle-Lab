@@ -1,0 +1,106 @@
+@model FileUploadViewModel
+@{
+	ViewData["Title"] = "Upload File";
+}
+
+<div class="py-4">
+	<a class="btn btn-link text-decoration-none px-0 mb-3" asp-controller="FileManagement" asp-action="Index">&larr; File Management</a>
+
+	<div class="row justify-content-center">
+		<div class="col-12 col-md-10 col-lg-8">
+			<div class="card border-0 shadow-sm">
+				<div class="card-body p-4">
+					<h1 class="h4 fw-semibold mb-4">Upload File</h1>
+
+					@if (!string.IsNullOrEmpty(Model.FileId))
+					{
+						<div class="alert alert-success" role="alert">
+							<div class="fw-semibold mb-2">File uploaded successfully.</div>
+
+							<label class="form-label small text-muted mb-1" for="fileIdOutput">File identifier</label>
+							<textarea id="fileIdOutput" class="form-control font-monospace small mb-3" rows="2" readonly>@Model.FileId</textarea>
+
+							<label class="form-label small text-muted mb-1" for="downloadLinkOutput">Download link</label>
+							<div class="input-group input-group-sm mb-3">
+								<input type="text" id="downloadLinkOutput" class="form-control font-monospace" value="@Model.DownloadUrl" readonly />
+								<button type="button" id="copyLinkButton" class="btn btn-outline-dark">Copy link</button>
+							</div>
+
+							<a class="btn btn-sm btn-dark" href="@Model.DownloadUrl">Go to download link</a>
+						</div>
+					}
+
+					<form asp-controller="FileManagement" asp-action="Upload" method="post" id="uploadForm">
+						<div asp-validation-summary="ModelOnly" class="alert alert-danger py-2 small" role="alert"></div>
+
+						<div class="mb-3">
+							<label for="fileInput" class="form-label">Select a file</label>
+							<input type="file" id="fileInput" class="form-control" />
+							<span asp-validation-for="Base64Content" class="text-danger small"></span>
+														<span asp-validation-for="FileName" class="text-danger small d-block"></span>
+						</div>
+
+						<input type="hidden" asp-for="FileName" id="fileName" />
+												<input type="hidden" asp-for="Base64Content" id="base64Content" />
+
+						<button type="submit" id="uploadButton" class="btn btn-dark" disabled>Upload</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section Scripts {
+	<script>
+		(function () {
+			const fileInput = document.getElementById('fileInput');
+			const base64Input = document.getElementById('base64Content');
+			const fileNameInput = document.getElementById('fileName');
+			const uploadButton = document.getElementById('uploadButton');
+
+			fileInput.addEventListener('change', function () {
+				base64Input.value = '';
+				fileNameInput.value = '';
+				uploadButton.disabled = true;
+
+				const file = fileInput.files[0];
+				if (!file) {
+					return;
+				}
+
+				fileNameInput.value = file.name;
+
+				const reader = new FileReader();
+				reader.onload = function () {
+					const dataUrl = reader.result;
+					base64Input.value = dataUrl.substring(dataUrl.indexOf(',') + 1);
+					uploadButton.disabled = base64Input.value.length === 0;
+				};
+				reader.readAsDataURL(file);
+			});
+
+			const copyLinkButton = document.getElementById('copyLinkButton');
+			const downloadLinkOutput = document.getElementById('downloadLinkOutput');
+
+			if (copyLinkButton && downloadLinkOutput) {
+				copyLinkButton.addEventListener('click', async function () {
+					try {
+						await navigator.clipboard.writeText(downloadLinkOutput.value);
+					} catch {
+						downloadLinkOutput.select();
+						document.execCommand('copy');
+					}
+
+					copyLinkButton.textContent = 'Copied!';
+					copyLinkButton.classList.replace('btn-outline-dark', 'btn-success');
+
+					setTimeout(function () {
+						copyLinkButton.textContent = 'Copy link';
+						copyLinkButton.classList.replace('btn-success', 'btn-outline-dark');
+					}, 2000);
+				});
+			}
+		})();
+	</script>
+}

@@ -1,0 +1,46 @@
+@model List<UserAccountViewModel>
+@{
+    ViewData["Title"] = "System Accounts";
+}
+
+<div class="py-4">
+    <a class="btn btn-link text-decoration-none px-0 mb-3" asp-controller="Admin" asp-action="Index">&larr; Administration</a>
+
+    <div class="card border-0 shadow-sm">
+        <div class="card-body p-4">
+            <h1 class="h4 fw-semibold mb-4">System Accounts</h1>
+            <div class="table-responsive">
+                <table class="table table-striped align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Claims</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var account in Model)
+                        {
+                            <tr>
+                                <td class="font-monospace">@account.Id</td>
+                                <td>@account.Name</td>
+                                <td>@account.Email</td>
+                                <td>
+                                    @if (account.Claims.Count == 0)
+                                    {
+                                        <span class="text-muted small">None</span>
+                                    }
+                                    @foreach (var claim in account.Claims)
+                                    {
+                                        <span class="badge text-bg-dark me-1" title="@claim.Type">@claim.Value</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

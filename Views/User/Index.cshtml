@@ -1,0 +1,40 @@
+@model UserAccountViewModel
+@{
+    ViewData["Title"] = "Account Information";
+}
+
+<div class="row justify-content-center py-4">
+    <div class="col-12 col-md-8 col-lg-6">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body p-4">
+                <h1 class="h4 fw-semibold mb-4">Account Information</h1>
+
+                <dl class="row mb-0">
+                    <dt class="col-sm-4 text-muted fw-normal">Id</dt>
+                    <dd class="col-sm-8 font-monospace">@Model.Id</dd>
+
+                    <dt class="col-sm-4 text-muted fw-normal">Name</dt>
+                    <dd class="col-sm-8">@Model.Name</dd>
+
+                    <dt class="col-sm-4 text-muted fw-normal">Email</dt>
+                    <dd class="col-sm-8">@Model.Email</dd>
+
+                    <dt class="col-sm-4 text-muted fw-normal">Claims</dt>
+                    <dd class="col-sm-8 mb-0">
+                        @if (Model.Claims.Count == 0)
+                        {
+                            <span class="text-muted">None</span>
+                        }
+                        else
+                        {
+                            @foreach (var claim in Model.Claims)
+                            {
+                                <span class="badge text-bg-secondary me-1" title="@claim.Type">@claim.Value</span>
+                            }
+                        }
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>

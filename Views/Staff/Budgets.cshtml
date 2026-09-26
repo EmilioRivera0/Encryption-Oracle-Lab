@@ -1,0 +1,53 @@
+@{
+    ViewData["Title"] = "Budgets";
+
+    var budgets = new[]
+    {
+        new { Department = "Marketing", Allocated = 50000m, Spent = 32500m },
+        new { Department = "Engineering", Allocated = 120000m, Spent = 98000m },
+        new { Department = "Sales", Allocated = 75000m, Spent = 41200m },
+        new { Department = "Human Resources", Allocated = 30000m, Spent = 12750m },
+        new { Department = "Operations", Allocated = 60000m, Spent = 58900m }
+    };
+    var culture = System.Globalization.CultureInfo.GetCultureInfo("en-US");
+}
+
+<div class="py-4">
+    <a class="btn btn-link text-decoration-none px-0 mb-3" asp-controller="Staff" asp-action="Index">&larr; Staff Operations</a>
+
+    <div class="card border-0 shadow-sm">
+        <div class="card-body p-4">
+            <h1 class="h4 fw-semibold mb-4">Budgets</h1>
+            <div class="table-responsive">
+                <table class="table table-striped align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th>Department</th>
+                            <th class="text-end">Allocated</th>
+                            <th class="text-end">Spent</th>
+                            <th class="text-end">Remaining</th>
+                            <th style="width: 25%;">Usage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var budget in budgets)
+                        {
+                            var usage = (int)Math.Round(budget.Spent / budget.Allocated * 100);
+                            <tr>
+                                <td>@budget.Department</td>
+                                <td class="text-end">@budget.Allocated.ToString("C", culture)</td>
+                                <td class="text-end">@budget.Spent.ToString("C", culture)</td>
+                                <td class="text-end">@((budget.Allocated - budget.Spent).ToString("C", culture))</td>
+                                <td>
+                                    <div class="progress" role="progressbar" aria-valuenow="@usage" aria-valuemin="0" aria-valuemax="100">
+                                        <div class="progress-bar @(usage >= 90 ? "bg-danger" : "bg-dark")" style="width: @usage%">@usage%</div>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

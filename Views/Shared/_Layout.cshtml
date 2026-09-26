@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Harvest &amp; Trustee Bank</title>
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/EncryptionOracleVulnerability.styles.css" asp-append-version="true" />
+</head>
+<body class="d-flex flex-column min-vh-100 bg-light">
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
+            <div class="container">
+                <a class="navbar-brand fw-semibold" asp-controller="Home" asp-action="Index">Harvest &amp; Trustee Bank</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
+                        aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="mainNavbar">
+                    <!-- Left section: links and expandable menu -->
+                    <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                        @if (User.Identity?.IsAuthenticated == true)
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Modules</a>
+                                <ul class="dropdown-menu">
+                                    <li><h6 class="dropdown-header">Account</h6></li>
+                                    <li><a class="dropdown-item" asp-controller="User" asp-action="Index">Account Information</a></li>
+                                    @if (User.IsInRole("Staff"))
+                                    {
+                                        <li><hr class="dropdown-divider" /></li>
+                                        <li><h6 class="dropdown-header">File Management</h6></li>
+                                        <li><a class="dropdown-item" asp-controller="FileManagement" asp-action="Index">Dashboard</a></li>
+                                        <li><a class="dropdown-item" asp-controller="FileManagement" asp-action="Upload">Upload File</a></li>
+                                        <li><a class="dropdown-item" asp-controller="FileManagement" asp-action="Download">Download Files</a></li>
+                                        <li><hr class="dropdown-divider" /></li>
+                                        <li><h6 class="dropdown-header">Staff Operations</h6></li>
+                                        <li><a class="dropdown-item" asp-controller="Staff" asp-action="Index">Dashboard</a></li>
+                                        <li><a class="dropdown-item" asp-controller="Staff" asp-action="Sales">Sales</a></li>
+                                        <li><a class="dropdown-item" asp-controller="Staff" asp-action="Budgets">Budgets</a></li>
+                                    }
+                                    @if (User.IsInRole("SysAdmin"))
+                                    {
+                                        <li><hr class="dropdown-divider" /></li>
+                                        <li><h6 class="dropdown-header">Administration</h6></li>
+                                        <li><a class="dropdown-item" asp-controller="Admin" asp-action="Index">Dashboard</a></li>
+                                        <li><a class="dropdown-item" asp-controller="Admin" asp-action="Accounts">System Accounts</a></li>
+                                        <li><a class="dropdown-item" asp-controller="Admin" asp-action="Metrics">Company Metrics</a></li>
+                                        <li><a class="dropdown-item" asp-controller="Admin" asp-action="ActivityLogs">Activity Logs</a></li>
+                                    }
+                                </ul>
+                            </li>
+                        }
+                    </ul>
+
+                    <!-- Right section: login or profile menu -->
+                    <ul class="navbar-nav ms-auto mb-2 mb-md-0 align-items-md-center">
+                        @if (User.Identity?.IsAuthenticated == true)
+                        {
+                            var userName = User.FindFirst(System.Security.Claims.ClaimTypes.Name)?.Value ?? "User";
+                            var userEmail = User.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value;
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle d-flex align-items-center gap-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <span class="rounded-circle bg-light text-dark fw-semibold d-inline-flex align-items-center justify-content-center"
+                                          style="width: 2rem; height: 2rem;">@userName[0]</span>
+                                    <span>@userName</span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li class="px-3 py-2">
+                                        <div class="fw-semibold">@userName</div>
+                                        @if (!string.IsNullOrEmpty(userEmail))
+                                        {
+                                            <div class="text-muted small">@userEmail</div>
+                                        }
+                                    </li>
+                                    <li><hr class="dropdown-divider" /></li>
+                                    <a class="dropdown-item" asp-controller="User" asp-action="Index">Account Information</a>
+                                    <li><hr class="dropdown-divider" /></li>
+                                    <li>
+                                        <form asp-controller="Login" asp-action="LogOut" method="post" class="m-0">
+                                            <button type="submit" class="dropdown-item text-danger">Sign out</button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="btn btn-outline-light btn-sm px-3" asp-controller="Login" asp-action="Index">Log in</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main role="main" class="flex-grow-1 container py-4">
+        @RenderBody()
+    </main>
+
+    <footer class="border-top bg-white py-3 mt-auto">
+        <div class="container text-center text-muted small">
+            &copy; @DateTime.Now.Year Harvest &amp; Trustee Bank
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

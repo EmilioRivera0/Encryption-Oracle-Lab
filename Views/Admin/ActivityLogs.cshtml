@@ -1,0 +1,57 @@
+@{
+    ViewData["Title"] = "Activity Logs";
+
+    var logs = new[]
+    {
+        new { Timestamp = "2026-01-21 09:02:14", User = "alice.johnson@harvesttrustee.com", Action = "Login", Details = "Successful login", Level = "Info" },
+        new { Timestamp = "2026-01-21 09:05:47", User = "alice.johnson@harvesttrustee.com", Action = "File Upload", Details = "Uploaded Q1-report.pdf", Level = "Info" },
+        new { Timestamp = "2026-01-21 09:18:03", User = "bob.smith@harvesttrustee.com", Action = "Login", Details = "Invalid password", Level = "Warning" },
+        new { Timestamp = "2026-01-21 09:18:39", User = "bob.smith@harvesttrustee.com", Action = "Login", Details = "Successful login", Level = "Info" },
+        new { Timestamp = "2026-01-21 09:32:11", User = "carol.williams@harvesttrustee.com", Action = "View Budgets", Details = "Accessed staff budgets page", Level = "Info" },
+        new { Timestamp = "2026-01-21 10:01:56", User = "anonymous", Action = "File Download", Details = "Invalid file identifier submitted", Level = "Error" },
+        new { Timestamp = "2026-01-21 10:14:22", User = "david.brown@harvesttrustee.com", Action = "File Download", Details = "Downloaded Q1-report.pdf", Level = "Info" },
+        new { Timestamp = "2026-01-21 10:40:09", User = "sysadmin@harvesttrustee.com", Action = "View Accounts", Details = "Accessed system accounts page", Level = "Info" },
+        new { Timestamp = "2026-01-21 11:03:45", User = "emma.davis@harvesttrustee.com", Action = "Logout", Details = "User signed out", Level = "Info" }
+    };
+}
+
+<div class="py-4">
+    <a class="btn btn-link text-decoration-none px-0 mb-3" asp-controller="Admin" asp-action="Index">&larr; Administration</a>
+
+    <div class="card border-0 shadow-sm">
+        <div class="card-body p-4">
+            <h1 class="h4 fw-semibold mb-4">Activity Logs</h1>
+            <div class="table-responsive">
+                <table class="table table-striped align-middle mb-0 small">
+                    <thead>
+                        <tr>
+                            <th>Timestamp</th>
+                            <th>User</th>
+                            <th>Action</th>
+                            <th>Details</th>
+                            <th>Level</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var log in logs)
+                        {
+                            var badge = log.Level switch
+                            {
+                                "Error" => "text-bg-danger",
+                                "Warning" => "text-bg-warning",
+                                _ => "text-bg-secondary"
+                            };
+                            <tr>
+                                <td class="font-monospace text-nowrap">@log.Timestamp</td>
+                                <td>@log.User</td>
+                                <td>@log.Action</td>
+                                <td>@log.Details</td>
+                                <td><span class="badge @badge">@log.Level</span></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

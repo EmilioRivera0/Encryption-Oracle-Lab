@@ -1,0 +1,53 @@
+@{
+    ViewData["Title"] = "Sales";
+
+    var sales = new[]
+    {
+        new { Id = "S-1001", Date = "2026-01-05", Customer = "Northwind Traders", Product = "Laptop", Amount = 1250.00m },
+        new { Id = "S-1002", Date = "2026-01-08", Customer = "Contoso Ltd.", Product = "Monitor", Amount = 320.50m },
+        new { Id = "S-1003", Date = "2026-01-12", Customer = "Fabrikam Inc.", Product = "Keyboard", Amount = 89.99m },
+        new { Id = "S-1004", Date = "2026-01-15", Customer = "Adventure Works", Product = "Docking Station", Amount = 210.00m },
+        new { Id = "S-1005", Date = "2026-01-20", Customer = "Tailspin Toys", Product = "Headset", Amount = 145.75m }
+    };
+}
+
+<div class="py-4">
+    <a class="btn btn-link text-decoration-none px-0 mb-3" asp-controller="Staff" asp-action="Index">&larr; Staff Operations</a>
+
+    <div class="card border-0 shadow-sm">
+        <div class="card-body p-4">
+            <h1 class="h4 fw-semibold mb-4">Sales</h1>
+            <div class="table-responsive">
+                <table class="table table-striped align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Date</th>
+                            <th>Customer</th>
+                            <th>Product</th>
+                            <th class="text-end">Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var sale in sales)
+                        {
+                            <tr>
+                                <td class="font-monospace">@sale.Id</td>
+                                <td>@sale.Date</td>
+                                <td>@sale.Customer</td>
+                                <td>@sale.Product</td>
+                                <td class="text-end">@sale.Amount.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("en-US"))</td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr class="fw-semibold">
+                            <td colspan="4">Total</td>
+                            <td class="text-end">@sales.Sum(s => s.Amount).ToString("C", System.Globalization.CultureInfo.GetCultureInfo("en-US"))</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

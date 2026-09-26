@@ -1,0 +1,59 @@
+@model FileDownloadViewModel
+@{
+    ViewData["Title"] = "Download Files";
+}
+
+<div class="py-4">
+    <a class="btn btn-link text-decoration-none px-0 mb-3" asp-controller="FileManagement" asp-action="Index">&larr; File Management</a>
+
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-10 col-lg-8">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <h1 class="h4 fw-semibold mb-4">Download Files</h1>
+
+                    @switch (Model.Status)
+                    {
+                        case FileDownloadStatus.Found:
+                            <div class="alert alert-success" role="alert">
+                                <div class="fw-semibold mb-1">Your download has started.</div>
+                                <div class="small">File name: <span class="font-monospace">@Model.DecryptedFileName</span></div>
+                                <a class="btn btn-sm btn-dark mt-3" id="fileDownloadLink" href="@Model.FileDownloadUrl">Download again</a>
+                            </div>
+                            break;
+                        case FileDownloadStatus.NotFound:
+                            <div class="alert alert-warning" role="alert">
+                                No file named <span class="font-monospace fw-semibold">@Model.DecryptedFileName</span> was found.
+                            </div>
+                            break;
+                        case FileDownloadStatus.InvalidFileId:
+                            <div class="alert alert-danger" role="alert">
+                                The file identifier is invalid.
+                            </div>
+                            break;
+                    }
+
+                    <form asp-controller="FileManagement" asp-action="Download" method="post">
+                        <div class="mb-3">
+                            <label asp-for="FileId" class="form-label"></label>
+                            <textarea asp-for="FileId" class="form-control font-monospace small" rows="3" placeholder="Paste the encrypted file identifier"></textarea>
+                            <span asp-validation-for="FileId" class="text-danger small"></span>
+                        </div>
+
+                        <button type="submit" class="btn btn-dark">Download</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    @if (Model.Status == FileDownloadStatus.Found)
+    {
+        <script>
+            document.getElementById('fileDownloadLink')?.click();
+        </script>
+    }
+}

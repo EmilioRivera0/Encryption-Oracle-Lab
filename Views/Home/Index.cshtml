@@ -1,0 +1,115 @@
+@{
+    ViewData["Title"] = "Home";
+    var isAuthenticated = User.Identity?.IsAuthenticated == true;
+    var showInsights = User.IsInRole("Staff") || User.IsInRole("SysAdmin");
+}
+
+<div class="py-4 @(isAuthenticated ? "" : "text-center py-5")">
+    <h1 class="display-6 fw-semibold mb-1 @(isAuthenticated ? "" : "display-5")">Welcome@(isAuthenticated ? $", {User.Identity!.Name}" : "")</h1>
+    @if (isAuthenticated)
+    {
+        <p class="text-muted mb-4">Here is what is happening at Harvest &amp; Trustee Bank today.</p>
+    }
+
+    @if (isAuthenticated)
+    {
+        <div class="row g-4">
+        <div class="@(showInsights ? "col-12 col-lg-5" : "col-12 col-lg-8 mx-auto")">
+        <h2 class="h6 text-uppercase text-muted fw-semibold mb-3 section-label">Modules</h2>
+        <div class="row g-4 text-center">
+            <div class="col-12 col-sm-6">
+                <a class="card border-0 shadow-sm h-100 text-decoration-none text-reset home-tile"
+                   asp-controller="User" asp-action="Index">
+                    <div class="card-body p-4 d-flex flex-column align-items-center">
+                        <div class="rounded-circle bg-dark text-white d-flex align-items-center justify-content-center mb-4"
+                             style="width: 5rem; height: 5rem;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
+                            </svg>
+                        </div>
+                        <h2 class="h5 fw-semibold mb-2">Account Information</h2>
+                        <p class="text-muted small mb-0">View your account details and claims.</p>
+                    </div>
+                </a>
+            </div>
+            @if (User.IsInRole("Staff"))
+            {
+            <div class="col-12 col-sm-6">
+                <a class="card border-0 shadow-sm h-100 text-decoration-none text-reset home-tile"
+                   asp-controller="FileManagement" asp-action="Index">
+                    <div class="card-body p-4 d-flex flex-column align-items-center">
+                        <div class="rounded-circle bg-dark text-white d-flex align-items-center justify-content-center mb-4"
+                             style="width: 5rem; height: 5rem;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+                                <path d="M9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.825a2 2 0 0 1-1.991-1.819l-.637-7a2 2 0 0 1 .342-1.31L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3m-8.322.12q.322-.119.684-.12h5.396l-.707-.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981z" />
+                            </svg>
+                        </div>
+                        <h2 class="h5 fw-semibold mb-2">File Management</h2>
+                        <p class="text-muted small mb-0">Manage your files.</p>
+                    </div>
+                </a>
+            </div>
+            }
+            @if (User.IsInRole("Staff"))
+            {
+                <div class="col-12 col-sm-6">
+                    <a class="card border-0 shadow-sm h-100 text-decoration-none text-reset home-tile"
+                       asp-controller="Staff" asp-action="Index">
+                        <div class="card-body p-4 d-flex flex-column align-items-center">
+                            <div class="rounded-circle bg-dark text-white d-flex align-items-center justify-content-center mb-4"
+                                 style="width: 5rem; height: 5rem;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+                                    <path d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v8A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-8A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5m1.886 6.914L15 7.151V12.5a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5V7.15l6.614 1.764a1.5 1.5 0 0 0 .772 0" />
+                                </svg>
+                            </div>
+                            <h2 class="h5 fw-semibold mb-2">Staff Operations</h2>
+                            <p class="text-muted small mb-0">View sales and budgets.</p>
+                        </div>
+                    </a>
+                </div>
+            }
+            @if (User.IsInRole("SysAdmin"))
+            {
+                <div class="col-12 col-sm-6">
+                    <a class="card border-0 shadow-sm h-100 text-decoration-none text-reset home-tile"
+                       asp-controller="Admin" asp-action="Index">
+                        <div class="card-body p-4 d-flex flex-column align-items-center">
+                            <div class="rounded-circle bg-dark text-white d-flex align-items-center justify-content-center mb-4"
+                                 style="width: 5rem; height: 5rem;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+                                    <path d="M5.338 1.59a61 61 0 0 0-2.837.856.48.48 0 0 0-.328.39c-.554 4.157.726 7.19 2.253 9.188a10.7 10.7 0 0 0 2.287 2.233c.346.244.652.42.893.533q.18.085.293.118a1 1 0 0 0 .101.025 1 1 0 0 0 .1-.025q.114-.034.294-.118c.24-.113.547-.29.893-.533a10.7 10.7 0 0 0 2.287-2.233c1.527-1.997 2.807-5.031 2.253-9.188a.48.48 0 0 0-.328-.39c-.651-.213-1.75-.56-2.837-.855C9.552 1.29 8.531 1.067 8 1.067c-.53 0-1.552.223-2.662.524zM5.072.56C6.157.265 7.31 0 8 0s1.843.265 2.928.56c1.11.3 2.229.655 2.887.87a1.54 1.54 0 0 1 1.044 1.262c.596 4.477-.787 7.795-2.465 9.99a11.8 11.8 0 0 1-2.517 2.453 7 7 0 0 1-1.048.625c-.28.132-.581.24-.829.24s-.548-.108-.829-.24a7 7 0 0 1-1.048-.625 11.8 11.8 0 0 1-2.517-2.453C1.928 10.487.545 7.169 1.141 2.692A1.54 1.54 0 0 1 2.185 1.43 63 63 0 0 1 5.072.56" />
+                                </svg>
+                            </div>
+                            <h2 class="h5 fw-semibold mb-2">Administration</h2>
+                            <p class="text-muted small mb-0">Manage accounts and monitor the system.</p>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+        </div>
+        @if (showInsights)
+        {
+            <div class="col-12 col-lg-7">
+                @if (User.IsInRole("Staff"))
+                {
+                    <partial name="_StaffInsights" />
+                }
+                @if (User.IsInRole("SysAdmin"))
+                {
+                    <partial name="_AdminInsights" />
+                }
+            </div>
+        }
+        </div>
+    }
+</div>
+
+@if (showInsights)
+{
+    @section Scripts {
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+        <script src="~/js/dashboard-charts.js" asp-append-version="true"></script>
+    }
+}

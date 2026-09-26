@@ -1,0 +1,42 @@
+@{
+    ViewData["Title"] = "Staff Operations";
+}
+
+<div class="py-4">
+    <a class="btn btn-link text-decoration-none px-0 mb-3" asp-controller="Home" asp-action="Index">&larr; Home</a>
+    <h1 class="h4 fw-semibold text-center mb-4">Staff Operations</h1>
+
+    <div class="row justify-content-center g-4">
+        <div class="col-12 col-sm-8 col-md-5 col-lg-4">
+            <a class="card border-0 shadow-sm h-100 text-decoration-none text-reset home-tile"
+               asp-controller="Staff" asp-action="Sales">
+                <div class="card-body p-5 d-flex flex-column align-items-center text-center">
+                    <div class="rounded-circle bg-dark text-white d-flex align-items-center justify-content-center mb-4"
+                         style="width: 5rem; height: 5rem;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+                            <path d="M0 0h1v15h15v1H0zm14.817 3.113a.5.5 0 0 1 .07.704l-4.5 5.5a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61 4.15-5.073a.5.5 0 0 1 .704-.07" />
+                        </svg>
+                    </div>
+                    <h2 class="h5 fw-semibold mb-2">Sales</h2>
+                    <p class="text-muted small mb-0">Review recent sales.</p>
+                </div>
+            </a>
+        </div>
+        <div class="col-12 col-sm-8 col-md-5 col-lg-4">
+            <a class="card border-0 shadow-sm h-100 text-decoration-none text-reset home-tile"
+               asp-controller="Staff" asp-action="Budgets">
+                <div class="card-body p-5 d-flex flex-column align-items-center text-center">
+                    <div class="rounded-circle bg-dark text-white d-flex align-items-center justify-content-center mb-4"
+                         style="width: 5rem; height: 5rem;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+                            <path d="M1 3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1zm7 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4" />
+                            <path d="M0 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V7a2 2 0 0 1-2-2z" />
+                        </svg>
+                    </div>
+                    <h2 class="h5 fw-semibold mb-2">Budgets</h2>
+                    <p class="text-muted small mb-0">Review department budgets.</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
