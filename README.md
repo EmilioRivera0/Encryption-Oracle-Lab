@@ -21,9 +21,3 @@ Learn how **encryption oracle** vulnerabilities happen, exploit one, and then fi
 > It is meant for learning and training only. Do **not** deploy it to production, expose it to the internet, or reuse its code in real systems. Run it only locally or in an isolated lab you control.
 
 ---
-
-## 📖 About the Lab
-
-**Encryption Oracle Lab** is a hands-on security training environment. It shows what happens when an application lets users influence data that it encrypts or decrypts with a secret key, and then returns the result to them.
-
-When the same key prot
