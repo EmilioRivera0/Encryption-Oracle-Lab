@@ -37,8 +37,8 @@ namespace EncryptionOracleVulnerability.Interfaces
 
 		private static UserEntity[] CreateUsers()
 		{
-			var sysAdmin = new UserEntity("A0001", "System Admin", "sysadmin@harvesttrustee.com", "Admin#2026");
-			sysAdmin.Claims.Add(new Claim(ClaimTypes.Role, "SysAdmin"));
+			var sysAdmin = new UserEntity("A0001", "Admin", "sysadmin@harvesttrustee.com", "Admin#2026");
+			sysAdmin.Claims.Add(new Claim(ClaimTypes.Role, Roles.Admin));
 
 			return
 			[
@@ -57,7 +57,7 @@ namespace EncryptionOracleVulnerability.Interfaces
 		private static UserEntity CreateStaffUser(string id, string name, string email, string password)
 		{
 			var user = new UserEntity(id, name, email, password);
-			user.Claims.Add(new Claim(ClaimTypes.Role, "Staff"));
+			user.Claims.Add(new Claim(ClaimTypes.Role, Roles.Staff));
 			return user;
 		}
 	}

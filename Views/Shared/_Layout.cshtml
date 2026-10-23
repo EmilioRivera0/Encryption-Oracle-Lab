@@ -1,3 +1,5 @@
+@using EncryptionOracleVulnerability.Entities
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,7 +31,7 @@
                                 <ul class="dropdown-menu">
                                     <li><h6 class="dropdown-header">Account</h6></li>
                                     <li><a class="dropdown-item" asp-controller="User" asp-action="Index">Account Information</a></li>
-                                    @if (User.IsInRole("Staff"))
+                                    @if (User.IsInRole(Roles.Staff))
                                     {
                                         <li><hr class="dropdown-divider" /></li>
                                         <li><h6 class="dropdown-header">File Management</h6></li>
@@ -42,7 +44,7 @@
                                         <li><a class="dropdown-item" asp-controller="Staff" asp-action="Sales">Sales</a></li>
                                         <li><a class="dropdown-item" asp-controller="Staff" asp-action="Budgets">Budgets</a></li>
                                     }
-                                    @if (User.IsInRole("SysAdmin"))
+                                    @if (User.IsInRole(Roles.Admin))
                                     {
                                         <li><hr class="dropdown-divider" /></li>
                                         <li><h6 class="dropdown-header">Administration</h6></li>

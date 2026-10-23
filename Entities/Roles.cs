@@ -2,7 +2,7 @@ namespace EncryptionOracleVulnerability.Entities
 {
     public static class Roles
     {
-        public const string SysAdmin = "SysAdmin";
+        public const string Admin = "Admin";
         public const string Staff = "Staff";
     }
 }

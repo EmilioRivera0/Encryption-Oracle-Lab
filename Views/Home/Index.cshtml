@@ -1,7 +1,9 @@
+@using EncryptionOracleVulnerability.Entities
+
 @{
     ViewData["Title"] = "Home";
     var isAuthenticated = User.Identity?.IsAuthenticated == true;
-    var showInsights = User.IsInRole("Staff") || User.IsInRole("SysAdmin");
+    var showInsights = User.IsInRole(Roles.Staff) || User.IsInRole(Roles.Admin);
 }
 
 <div class="py-4 @(isAuthenticated ? "" : "text-center py-5")">
@@ -33,7 +35,7 @@
                     </div>
                 </a>
             </div>
-            @if (User.IsInRole("Staff"))
+            @if (User.IsInRole(Roles.Staff))
             {
             <div class="col-12 col-sm-6">
                 <a class="card border-0 shadow-sm h-100 text-decoration-none text-reset home-tile"
@@ -51,7 +53,7 @@
                 </a>
             </div>
             }
-            @if (User.IsInRole("Staff"))
+            @if (User.IsInRole(Roles.Staff))
             {
                 <div class="col-12 col-sm-6">
                     <a class="card border-0 shadow-sm h-100 text-decoration-none text-reset home-tile"
@@ -69,7 +71,7 @@
                     </a>
                 </div>
             }
-            @if (User.IsInRole("SysAdmin"))
+            @if (User.IsInRole(Roles.Admin))
             {
                 <div class="col-12 col-sm-6">
                     <a class="card border-0 shadow-sm h-100 text-decoration-none text-reset home-tile"
@@ -92,11 +94,11 @@
         @if (showInsights)
         {
             <div class="col-12 col-lg-7">
-                @if (User.IsInRole("Staff"))
+                @if (User.IsInRole(Roles.Staff))
                 {
                     <partial name="_StaffInsights" />
                 }
-                @if (User.IsInRole("SysAdmin"))
+                @if (User.IsInRole(Roles.Admin))
                 {
                     <partial name="_AdminInsights" />
                 }

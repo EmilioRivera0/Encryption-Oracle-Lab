@@ -16,14 +16,14 @@ namespace EncryptionOracleVulnerability.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = Roles.SysAdmin)]
+        [Authorize(Roles = Roles.Admin)]
         public IActionResult Index()
         {
             return View();
         }
 
         [HttpGet]
-        [Authorize(Roles = Roles.SysAdmin)]
+        [Authorize(Roles = Roles.Admin)]
         public IActionResult Accounts()
         {
             var model = _userService.GetAllUsers()
@@ -42,14 +42,14 @@ namespace EncryptionOracleVulnerability.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = Roles.SysAdmin)]
+        [Authorize(Roles = Roles.Admin)]
         public IActionResult Metrics()
         {
             return View();
         }
 
         [HttpGet]
-        [Authorize(Roles = Roles.SysAdmin)]
+        [Authorize(Roles = Roles.Admin)]
         public IActionResult ActivityLogs()
         {
             return View();
